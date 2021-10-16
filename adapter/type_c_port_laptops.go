@@ -8,5 +8,5 @@ type MacLaptop struct {
 }
 
 func (laptop *MacLaptop) InsertIntoTypeCPort(device Device) bool {
-	return device.GetPortType() == "TYPE_C"
+	return device.GetPortType() == TYPE_C_PORT
 }

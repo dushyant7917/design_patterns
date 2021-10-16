@@ -5,8 +5,11 @@ type USBToTypeCAdapter struct {
 }
 
 func (adapter *USBToTypeCAdapter) InsertIntoUSBPort(device Device) bool {
-	// Do some conversion from USB to Type-C
-	return !adapter.laptop.InsertIntoTypeCPort(device)
+	if device.GetPortType() != USB_PORT {
+		return false
+	}
+	device.SetPortType(TYPE_C_PORT)
+	return adapter.laptop.InsertIntoTypeCPort(device)
 }
 
 type TypeCToUSBAdapter struct {
@@ -14,6 +17,9 @@ type TypeCToUSBAdapter struct {
 }
 
 func (adapter *TypeCToUSBAdapter) InsertIntoTypeCPort(device Device) bool {
-	// Do some conversion from Type-C to USB
-	return !adapter.laptop.InsertIntoUSBPort(device)
+	if device.GetPortType() != TYPE_C_PORT {
+		return false
+	}
+	device.SetPortType(USB_PORT)
+	return adapter.laptop.InsertIntoUSBPort(device)
 }
